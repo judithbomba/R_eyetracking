@@ -46,7 +46,7 @@ for (subject in subjects){
           if (!dryRun){
             print("loading data..")
             print(fullpathFilename)
-            assign(filename, read.asc(fullpathFilename[i]))
+            assign(filename, read.asc(fullpathFilename))
             
             print(paste("loaded df ", i))
             
