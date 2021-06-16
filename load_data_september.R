@@ -7,6 +7,7 @@ require(stringr)
 require(parsnip)
 
 wdName <- dirname(rstudioapi::getActiveDocumentContext()$path)
+setwd(wdName)
 
 subjects <- c(27,28) #c(seq(from = 27, to = 41))
 days <- c(1,2)
