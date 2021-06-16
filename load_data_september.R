@@ -6,18 +6,18 @@ require(intervals)
 require(stringr)
 require(parsnip)
 
-#TODO: make paths relative !
+wdName <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
 subjects <- c(27,28) #c(seq(from = 27, to = 41))
 days <- c(1,2)
 f <- c(1,2)
-ascFolder <- "C:/Users/judit/Desktop/Bachelor/Bachelorarbeit/BA R Project/Daten/BigSis/data_eye/ascs"
+ascFolder <- wdName
 
 fullpathFilename <- c()
 
-load("C:/Users/judit/Desktop/Bachelor/Bachelorarbeit/BA R Project/Daten/BigSis/analysis/September/df_September.RData")
-behav_Septembet <- df_September
-
+load(paste0(wdName,"/df_September.RData"))
+behav_September <- df_September
+rm(df_September)
 
 dryRun <- FALSE # die Namen der auszulesenden Dateien vorher einmal anzeigen lassen
 for (subject in subjects){
@@ -39,7 +39,7 @@ for (subject in subjects){
           attach <- FALSE
           print(foundFiles[i])
           name <- gsub('.{0,4}$', '', foundFiles[i])
-          fullpathFilename <- c(fullpathFilename,paste0(ascFolder,"/",as.character(foundFiles[i])))
+          fullpathFilename <- paste0(ascFolder,"/",as.character(foundFiles[i]))
           filename <- paste("asc_", name, sep="") #string of filename minus last 4 char
           #print(filename)
           if (!dryRun){
@@ -207,7 +207,7 @@ for (subject in subjects){
         
       }else{
         print(paste0(ascFolder,"/",foundFiles))
-        fullpathFilename <- c(fullpathFilename,paste0(ascFolder,"/",foundFiles))
+        fullpathFilename <- paste0(ascFolder,"/",foundFiles)
         filename <- paste("asc_", name, sep="")
         print(filename)
         if (!dryRun){
