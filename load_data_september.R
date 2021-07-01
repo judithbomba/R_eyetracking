@@ -79,11 +79,22 @@ my_downsampling <- function(data, name){ #TODO in zwei Funktionen: 1. downsampli
     mutate(ps_corrected = ps-(b1*xp)-(b2*yp))
   
   print("corrected")
+  
   #Fixation
   Fix <- cbind(fix$stime, fix$etime)
   data_ps <- data_ps %>%
     mutate(fixation = time %In% Fix,
            fixation.index = whichInterval(time, Fix))
+  #Sakkaden
+  Sac <- cbind(sac$stime, sac$etime)
+  data_ps <- data_ps %>%
+    mutate(saccade = time %In% Sac,
+           saccade.index = whichInterval(time, Sac))
+  #Blinzeln
+  Blk <- cbind(blk$stime, blk$etime)
+  data_ps <- data_ps %>%
+    mutate(blink = time %In% Blk,
+           blink.index = whichInterval(time, Blk))
   
   # downsampling
   data_ps_100Hz <- dplyr::filter(data_ps, row_number() %% 10 == 0)
